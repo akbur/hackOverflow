@@ -17,7 +17,7 @@ module.exports = function ( app, express ) {
   var answerRouter = express.Router();
   var postRouter = express.Router();
   var forumRouter = express.Router();
-
+  var commentRouter = express.Router();
 
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({extended: true}));
@@ -28,6 +28,7 @@ module.exports = function ( app, express ) {
   app.use('/api/post', postRouter); // use postRouter for all user post requests
   app.use('/api/post', answerRouter); // use answerRouter for all use answer requests
   app.use('/api/forum', forumRouter);
+  app.use('/api/comment', commentRouter); 
 
   // authentication middleware used to decode token and made available on the request
 // app.use('someroute/someroute', helpers.decode);
@@ -205,4 +206,5 @@ app.post('/auth/unlink', ensureAuthenticated, function(req, res) {
   require('../posts/postRoutes.js')(postRouter);
   require('../users/userRoutes.js')(userRouter);
   require('../forums/forumRoutes.js')(forumRouter);
+  require('../comments/commentRoutes.js')(commentRouter);
 };
