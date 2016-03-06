@@ -6,6 +6,7 @@ angular.module('hackoverflow', [
   'hackoverflow.edit-post',
   'hackoverflow.answers',
   'hackoverflow.signout',
+  'hackoverflow.comments',
   'ui.router',
   'ngRoute',
   'ngAnimate',
@@ -63,11 +64,11 @@ angular.module('hackoverflow', [
       templateUrl: 'app/forums/forums.html',
       controller: 'ForumsController'
     })
-      .state('forums.posts', {
-        url: '/:forum',
-        templateUrl: 'app/posts/posts.html',
-        controller: 'PostsController'
-      })
+    .state('forums.posts', {
+      url: '/:forum',
+      templateUrl: 'app/posts/posts.html',
+      controller: 'PostsController'
+    })
     .state('post', {
       url: '/:forum/:postId',
       templateUrl: 'app/answers/answers.html',
@@ -83,6 +84,11 @@ angular.module('hackoverflow', [
       url: '/edit-post',
       templateUrl: 'app/posts/add-post.html',
       controller: 'EditPostController'
+    })
+    .state('comments', {
+      url: '/comments',
+      templateUrl: 'app/comments/comments.html',
+      controller: 'CommentController'
     })
     .state('signin', {
       url: '/signin',

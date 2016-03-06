@@ -185,6 +185,41 @@ angular.module('hackoverflow.services', [])
 
 })
 
+.factory('Comments', function($http) {
+  var getComments = function(postId) {
+    return $http({
+      method: 'GET',
+      url: '/api/post/' + postId + '/comments'
+    })
+    .then(function(response) {
+      console.log('COMMENTS', response.data);
+    });
+  };
+
+  var newComment = function(body, author, answerId, postId, created) {
+    var comment = {
+      'body': body,
+      'author': author,
+      'answer': answerId,
+      'post': postId, 
+      'created': created
+    };
+    return $http({
+      method: 'POST', 
+      url: '/api/post' + postId + '/comments',
+      data: comment
+    })
+    .then(function(response) {
+      console.log('created comment', response.data);
+    })
+  };
+
+  return {
+    getComments: getComments,
+    newComment: newComment
+  };
+})
+
 // AUTHENTICATION
 
 .factory('Auth', function($http, $location, $window) {

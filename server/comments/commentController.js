@@ -27,6 +27,7 @@ module.exports = {
     });
   },
 
+  //TODO:
   deleteComment: function (req, res, next) {
     res.end(console.log('deleting a comment'));
   }
