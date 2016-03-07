@@ -67,9 +67,14 @@
         </div>
 
         <!-- COMMENTS -->
+        <div class="commentContainer">
+          <form class="newComment" ng-submit="newComment(newCommentBody, answer._id)">
+            <input ng-model="newCommentBody" placeholder="Post a comment..."></input>
+          </form>
 
-        <div class="comment-box" ng-repeat="comment in comments" ng-if="answer._id == comment.answer">
-          <comment-directive comment="comment" post-id="postId" answer="answer"></comment-directive>
+          <div ng-repeat="comment in comments" ng-if="answer._id == comment.answer">
+            <comment-directive comment="comment" post-id="postId" answer="answer"></comment-directive>
+          </div>
         </div>
 
       </div>

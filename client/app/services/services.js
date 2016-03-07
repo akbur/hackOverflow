@@ -209,11 +209,11 @@ angular.module('hackoverflow.services', [])
     };
     return $http({
       method: 'POST', 
-      url: '/api/post' + postId + '/comments',
+      url: '/api/post/' + postId + '/comments',
       data: comment
     })
     .then(function(response) {
-      console.log('created comment', response.data);
+      return response.data;
     })
   };
 

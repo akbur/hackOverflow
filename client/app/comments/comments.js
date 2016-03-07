@@ -7,12 +7,11 @@ angular.module('hackoverflow.comments', [
 })
 
 .controller('CommentController', function($scope, $rootScope, $stateParams, $state, Comments, commentService) {
-  $scope.postId = $stateParams.postId || '56da4a66155ea04b09b2496b';
+  $scope.postId = $stateParams.postId;
 
   $scope.comments = commentService.comments;
   $scope.$watch('comments', function() {
     commentService.comments = $scope.comments;
-    console.log('comments changed', commentService.comments, ' scope ', $scope.comments);
   });
 
   $scope.getComments = function() {
@@ -20,10 +19,6 @@ angular.module('hackoverflow.comments', [
     .then(function(){
       $scope.comments = commentService.comments;
     });
-  };
-
-  $scope.newComment = function() {
-  //Comments.newComment(body, author, answerId, postId, created);
   };
 
   $scope.getComments();

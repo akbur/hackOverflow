@@ -12,7 +12,8 @@ angular.module('hackoverflow.answers', [
   $scope.post = {};
   $scope.postId = $stateParams.postId;
   $scope.newAnswerBody = '';
-  $scope.theUser = $rootScope.user;
+  $scope.newCommentBody = '';
+  $scope.theUser = $rootScope.user || 'anon';
   $scope.TimeService = TimeService;
   $scope.votes = $scope.post.votes;
   $scope.comments = commentService.comments;
@@ -68,8 +69,13 @@ angular.module('hackoverflow.answers', [
     Comments.getComments($scope.postId)
     .then(function(){
       $scope.comments = commentService.comments;
-      console.log($scope.comments);
     });
+  };
+
+  $scope.newComment = function(newCommentBody, answerId) {
+    Comments.newComment(newCommentBody, $scope.theUser, answerId, $scope.postId, new Date());
+    $scope.newCommentBody = '';
+    $scope.getComments();
   };
 
   $scope.getData($scope.postId);
