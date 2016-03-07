@@ -34,37 +34,47 @@
     <br/><br/>
   </div>
 
-      <div class='answer' ng-repeat='answer in answers | filter:searchFor'>
-        <p ng-bind='answer.body'></p>
-        <p class="info"><span ng-bind="answer.author"></span>
-          {{ TimeService.relativeDate(answer.created) }}
-        </p>
+      <div ng-repeat='answer in answers | filter:searchFor'>
+        <div class='answer'>
+          <p ng-bind='answer.body'></p>
+          <p class="info"><span ng-bind="answer.author"></span>
+            {{ TimeService.relativeDate(answer.created) }}
+          </p>
 
-        <div ng-if="theUser === answer.author">
-          <span class="edit-delete" ng-click="deleteAnswer(post._id, answer._id)">DELETE</span>
+          <div ng-if="theUser === answer.author">
+            <span class="edit-delete" ng-click="deleteAnswer(post._id, answer._id)">DELETE</span>
+          </div>
+          <div ng-if="theUser === answer.author">
+            <span class='edit-delete' ng-click='showForm = true'>EDIT</span>
+            <form class='form-inline'
+                  ng-show='showForm' 
+                  ng-submit='editAnswer(post._id, answer)'
+            >
+              <input type='text' name='answer' ng:required ng-model='answer.body'>
+              <button 
+                class='edit-delete'
+                ng-click='showForm = false'
+                type='submit'
+              >SUBMIT</button>
+              <button
+                class='edit-delete'
+                type='reset' 
+                Value='reset'
+                ng-click='showForm = false; getAnswers()'
+              >CANCEL</button>
+            </form>
+          </div>
         </div>
-        <div ng-if="theUser === answer.author">
-          <span class='edit-delete' ng-click='showForm = true'>EDIT</span>
-          <form class='form-inline'
-                ng-show='showForm' 
-                ng-submit='editAnswer(post._id, answer)'
-          >
-            <input type='text' name='answer' ng:required ng-model='answer.body'>
-            <button 
-              class='edit-delete'
-              ng-click='showForm = false'
-              type='submit'
-            >SUBMIT</button>
-            <button
-              class='edit-delete'
-              type='reset' 
-              Value='reset'
-              ng-click='showForm = false; getAnswers()'
-            >CANCEL</button>
-          </form>
+
+        <!-- COMMENTS -->
+
+        <div class="comment-box" ng-repeat="comment in comments" ng-if="answer._id == comment.answer">
+          <comment-directive comment="comment" post-id="postId" answer="answer"></comment-directive>
         </div>
+
       </div>
   </div>
+
 
   <div class="answer-form">
     <form name="addAnswerForm"

@@ -1,6 +1,6 @@
 angular.module('hackoverflow.services', [])
 
-// POSTS
+// --- POSTS ---
 
 .factory('Posts', function($http) {
 
@@ -113,7 +113,7 @@ angular.module('hackoverflow.services', [])
   };
 })
 
-// ANSWERS
+// --- ANSWERS ---
 
 .factory('Answers', function ( $http ) {
 
@@ -182,10 +182,11 @@ angular.module('hackoverflow.services', [])
     editAnswer: editAnswer,
     deleteAnswer: deleteAnswer
   };
-
 })
 
-.factory('Comments', function($http) {
+// --- COMMENTS ---
+
+.factory('Comments', function($http, commentService) {
   var getComments = function(postId) {
     return $http({
       method: 'GET',
@@ -193,6 +194,8 @@ angular.module('hackoverflow.services', [])
     })
     .then(function(response) {
       console.log('COMMENTS', response.data);
+      commentService.comments = response.data;
+      return response.data;
     });
   };
 
@@ -220,7 +223,23 @@ angular.module('hackoverflow.services', [])
   };
 })
 
-// AUTHENTICATION
+.service('commentService', function() {
+  this.comments = [];
+})
+
+.directive('commentDirective', function() {
+  return {
+    templateUrl: 'app/comments/comment-directive.html',
+    replace: true,
+    scope: {
+      comment: '=',
+      postId: '=',
+      answer: '='
+    }
+  }
+})
+
+// --- AUTHENTICATION ---
 
 .factory('Auth', function($http, $location, $window) {
 

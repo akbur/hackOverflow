@@ -7,7 +7,7 @@ angular.module('hackoverflow.answers', [
 })
 
 .controller('AnswersController',
-  function ($scope, $rootScope, $stateParams, $state, Answers, Posts, Comments, TimeService) {
+  function ($scope, $rootScope, $stateParams, $state, Answers, Posts, Comments, commentService, TimeService) {
   $scope.answers = [];
   $scope.post = {};
   $scope.postId = $stateParams.postId;
@@ -15,6 +15,7 @@ angular.module('hackoverflow.answers', [
   $scope.theUser = $rootScope.user;
   $scope.TimeService = TimeService;
   $scope.votes = $scope.post.votes;
+  $scope.comments = commentService.comments;
 
   $scope.getData = function getData(postId) {
     Posts.getPosts(postId).then(function(result) {
@@ -63,6 +64,14 @@ angular.module('hackoverflow.answers', [
     })
   };
 
+  $scope.getComments = function() {
+    Comments.getComments($scope.postId)
+    .then(function(){
+      $scope.comments = commentService.comments;
+      console.log($scope.comments);
+    });
+  };
+
   $scope.getData($scope.postId);
-  Comments.getComments($scope.postId);
+  $scope.getComments();
 });
