@@ -85,8 +85,8 @@
           <div ng-repeat="comment in comments" ng-if="answer._id == comment.answer">
             <comment-directive comment="comment" post-id="postId" answer="answer" time-service="TimeService"></comment-directive>
           </div>
-          <form class="newComment" ng-submit="newComment(newCommentBody, answer._id)">
-            <input ng-model="newCommentBody" placeholder="Post a comment..."></input>
+          <form class="newComment" ng-submit="newComment(newCommentBody[answer._id], answer._id)">
+            <input ng-model="newCommentBody[answer._id]" placeholder="Post a comment..."></input>
           </form>
         </div>
       </div>
