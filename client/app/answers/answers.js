@@ -25,13 +25,6 @@ angular.module('hackoverflow.answers', [
     })
   };
 
-  // $scope.getData = function getData(postId) {
-  //   Posts.getPosts(postId).then(function(result) {
-  //     $scope.post = result.data;
-  //     $scope.getAnswers();
-  //   })
-  // }
-
   $scope.getAnswers = function getAnswers() {
     Answers.getAnswers($scope.post._id).then(function(result) {
       $scope.answers = result.data;

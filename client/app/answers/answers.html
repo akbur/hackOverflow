@@ -9,7 +9,6 @@
     <span class="post-forum"> {{ post.forum }} </span>
     <h2 ng-bind="post.title"></h2>
     <p ng-bind="post.body"></p>
-    <!-- Tags -->
     Vote!<br>
     <img title="Upvote" ng-click="changeVote(true, post)" src="../assets/images/uparrow.png"></i><br>
     <img title="Downvote" ng-click="changeVote(false, post)" src="../assets/images/downarrow.png"></i><br>
@@ -89,6 +88,7 @@
           <form class="newComment" ng-submit="newComment(newCommentBody, answer._id)">
             <input ng-model="newCommentBody" placeholder="Post a comment..."></input>
           </form>
+        </div>
       </div>
   </div>
 

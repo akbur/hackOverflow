@@ -98,11 +98,6 @@ angular.module('hackoverflow', [
       controller: 'EditPostController',
       resolve: {loginRequired: loginRequired}
     })
-    .state('comments', {
-      url: '/comments',
-      templateUrl: 'app/comments/comments.html',
-      controller: 'CommentController'
-    })
     .state('signin', {
       url: '/signin',
       templateUrl: 'app/auth/signin.html',
