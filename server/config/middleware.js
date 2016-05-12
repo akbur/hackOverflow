@@ -49,7 +49,7 @@ module.exports = function ( app, express ) {
 
     var payload = null;
     try {
-      payload = jwt.decode(token, config.TOKEN_SECRET);
+      payload = jwt.decode(token, process.env.TOKEN_SECRET || config.TOKEN_SECRET);
     }
     catch (err) {
       return res.status(401).send({ message: err.message });
@@ -74,7 +74,7 @@ function createJWT(user) {
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
   };
-  return jwt.encode(payload, config.TOKEN_SECRET);
+  return jwt.encode(payload, process.env.TOKEN_SECRET || config.TOKEN_SECRET);
 }
 
 /*
@@ -118,7 +118,7 @@ app.post('/auth/github', function(req, res) {
   var params = {
     code: req.body.code,
     client_id: req.body.clientId,
-    client_secret: config.GITHUB_SECRET,
+    client_secret: process.env.GITHUB_SECRET || config.GITHUB_SECRET,
     redirect_uri: req.body.redirectUri
   };
   // Step 1. Exchange authorization code for access token.
@@ -135,7 +135,7 @@ app.post('/auth/github', function(req, res) {
             return res.status(409).send({ message: 'There is already a GitHub account that belongs to you' });
           }
           var token = req.header('Authorization').split(' ')[1];
-          var payload = jwt.decode(token, config.TOKEN_SECRET);
+          var payload = jwt.decode(token, process.env.TOKEN_SECRET || config.TOKEN_SECRET);
           User.findById(payload.sub, function(err, user) {
             if (!user) {
               return res.status(400).send({ message: 'User not found' });

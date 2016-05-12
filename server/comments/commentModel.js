@@ -4,7 +4,7 @@ var CommentSchema = new mongoose.Schema({
   body: String,
   author: String, 
   answer: {
-    type: mongoose.Schema.Types.ObjectId, 
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Answer'
   },
   post: {
